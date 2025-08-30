@@ -1,12 +1,28 @@
-####Natro-Alt-Synchronization
-A extension to Natro Macro that adds the ability to synchronize an alt account with a main account to gather in the same field.
+# Natro-Alt-Synchronization Extension for Natro Macro v1.0.1
 
-This is particularly useful for tad alts in blue hives, as it allows players to use boosts (gained from the blue field booster) in fields that they normally would not gather in. DM @aqts on Discord (or message @Vqrtical on Roblox) for assistance, and please give this repository a star if it helped you!
+---
 
-SETUP:
+## ✨ Features  
 
-You will need a Discord bot setup on both your alt and main account. See https://discord.com/channels/1012610056921038868/1088923608295936000 (in Natro Macro discord) to help you do so.
-After installing, in the "Misc" tab of the macro, you will find the "Field Following" setting. Enable it for both accounts, and set the main account to "Leader" and alt to "Follower".
-Set a max time that the alt will follow the main account to a different field (in seconds), this should typically be 900 seconds (15 minutes). You can ignore this number for the main account.
-Create a new Discord channel (that the discord bots have permissions to!) and copy the ID of it. Paste it in the "Channel ID" option in both your alt and main account.
-Done! These settings are NOT controllable with remote control or when the macro is paused, so make sure to stop the macro to do so.
+
+- **Windows 11 Aero Theme**  
+  I've added the **Aero theme** inside the `guitheme` of Natro Macro for a cleaner Windows 11–style look.  
+  > ⚠️ Currently only works in **Light Mode** (not compatible with Dark Mode).  
+
+
+- **Natro-Alt-Synchronization Extension**  
+  Adds the ability to synchronize an alt account with your main account to gather in the same field.  
+  - Especially useful for **Tad alts in blue hives**.  
+  - Allows players to use boosts (from the Blue Field Booster) in fields they normally wouldn’t gather in.  
+  - Based on the original **Tad Synchronization extension**, updated for the latest version of Natro Macro.  
+
+---
+
+## 📝 Notes  
+
+- This version modifies **Natro Macro** to fully support the **Tad Synchronization extension** from older versions.  
+
+## 🙌 Credits  
+
+- [Natro-Alt-Synchronization by aqts](https://github.com/aqts-aqts/Natro-Alt-Synchronization) – Original Tad Synchronization extension.  
+- [Natro Macro by NatroTeam](https://github.com/NatroTeam/NatroMacro) – Core macro framework.  
