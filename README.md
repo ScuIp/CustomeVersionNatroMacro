@@ -20,7 +20,7 @@
 ## 📝 Notes  
 
 - This version modifies **Natro Macro** to fully support the **Tad Synchronization extension** from older versions.  
-
+- Unofficial Natro Macro – not affiliated with the official teams of Natro or aqts; adds Aero theme and Alt Sync.
 ## 🙌 Credits  
 
 - [Natro-Alt-Synchronization by aqts](https://github.com/aqts-aqts/Natro-Alt-Synchronization) – Original Tad Synchronization extension.  
