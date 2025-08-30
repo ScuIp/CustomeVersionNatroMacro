@@ -13,9 +13,8 @@
 - **Natro-Alt-Synchronization Extension**  
   Adds the ability to synchronize an alt account with your main account to gather in the same field.  
   - Especially useful for **Tad alts in blue hives**.  
-  - Allows players to use boosts (from the Blue Field Booster) in fields they normally wouldn’t gather in.  
+  - Allows players to use boosts (Gained from the blue field booster.) in fields they normally wouldn’t gather in.  
   - Based on the original **Tad Synchronization extension**, updated for the latest version of Natro Macro.  
-
 ---
 
 ## 📝 Notes  
