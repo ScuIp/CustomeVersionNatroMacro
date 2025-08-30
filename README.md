@@ -32,7 +32,7 @@
 Join the official Natro Macro community on Discord!  
 **Discord (official Natro Macro server):** [Join Here](https://discord.gg/natromacro)
 
-> ⚠️ Note: This project is unofficial. For issues related to this modified version, you can contact me directly on Discord: **_sculp_**.  
+> ⚠️ Note: This project is unofficial. For issues related to this modified version, you can contact me directly on Discord: **\_sculp\_**.  
 > I might not respond immediately.
 
 ## ⚖️ License & Disclaimer
@@ -42,7 +42,7 @@ This project is released under the **GNU General Public License v3 (GPL-3.0)**.
 - You are free to **use, modify, and redistribute** this version under the terms of the GPL v3.  
 - All original copyright notices and the GPL license must be preserved.  
 - **This software comes with NO WARRANTY**; use at your own risk.  
-- If the official Natro Macro team encounters any issues or concerns regarding this version, please contact me on Discord: **_sculp_**.
+- If the official Natro Macro team encounters any issues or concerns regarding this version, please contact me on Discord: **\_sculp\_**.
 
 For the full license, see [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
 
