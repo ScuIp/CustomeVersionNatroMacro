@@ -25,3 +25,13 @@
 
 - [Natro-Alt-Synchronization by aqts](https://github.com/aqts-aqts/Natro-Alt-Synchronization) – Original Tad Synchronization extension.  
 - [Natro Macro by NatroTeam](https://github.com/NatroTeam/NatroMacro) – Core macro framework.  
+
+## ⚖️ License & Disclaimer
+
+This project is released under the **GNU General Public License v3 (GPL-3.0)**.  
+- This is an **unofficial modified version** of Natro Macro, **not affiliated** with the official teams of Natro or aqts.  
+- You are free to **use, modify, and redistribute** this version under the terms of the GPL v3.  
+- All original copyright notices and the GPL license must be preserved.  
+- **This software comes with NO WARRANTY**; use at your own risk.
+
+For the full license, see [GNU GPL v3](https://www.gnu.org/licenses/gpl-3.0.en.html).
