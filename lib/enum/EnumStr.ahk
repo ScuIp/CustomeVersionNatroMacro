@@ -79,5 +79,4 @@
 	, "PlanterHarvestFull3"
 	, "FieldFollowingFollowMode"
 	, "FieldFollowingMaxTime"
-	, "FieldFollowingChannelID"
-]
+	, "FieldFollowingChannelID"]
