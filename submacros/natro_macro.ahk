@@ -5,8 +5,7 @@ Copyright © Natro Team (https://github.com/NatroTeam)
 This file is part of Natro Macro. Our source code will always be open and available.
 
 Natro Macro is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation,
-either version 3 of the License, or (at your option) any latNatroMacro-AltSync
-er version.
+either version 3 of the License, or (at your option) any later version.
 
 Natro Macro is distributed in the hope that it will be useful. This does not give you the right to steal sections from our code, distribute it under your own name, then slander the macro.
 
@@ -108,9 +107,10 @@ OnMessage(0x5556, nm_sendHeartbeat)
 OnMessage(0x5557, nm_ForceReconnect)
 OnMessage(0x5558, nm_AmuletPrompt)
 OnMessage(0x5559, nm_FindItem)
+OnMessage(0x5562, aq_followToField)
 
 ; set version identifier
-VersionID := "1.0.1 (Modified UnOfficiel)"
+VersionID := "1.0.1"
 
 ;initial load warnings
 if (A_ScreenDPI != 96)
@@ -838,7 +838,6 @@ nm_importConfig()
 		, "TimerX", 150
 		, "TimerY", 150
 		, "TimersOpen", 0)
-
 	config["Extensions"] := Map("FollowingLeader", 0
 		, "FollowingField", ""
 		, "FollowingStartTime", 0
@@ -906,6 +905,44 @@ RefreshingFields:=["Coconut", "Strawberry", "Blue Flower"]
 SatisfyingFields:=["Pineapple", "Sunflower", "Pumpkin"]
 MotivatingFields:=["Stump", "Spider", "Mushroom", "Rose"]
 InvigoratingFields:=["Pepper", "Mountain Top", "Clover", "Cactus"]
+
+index_field_map := Map()
+index_field_map[1] := "Bamboo"
+index_field_map[2] := "Blue Flower"
+index_field_map[3] := "Cactus"
+index_field_map[4] := "Clover"
+index_field_map[5] := "Coconut"
+index_field_map[6] := "Dandelion"
+index_field_map[7] := "Mountain Top"
+index_field_map[8] := "Mushroom"
+index_field_map[9] := "Pepper"
+index_field_map[10] := "Pineapple"
+index_field_map[11] := "Pine Tree"
+index_field_map[12] := "Pumpkin"
+index_field_map[13] := "Rose"
+index_field_map[14] := "Spider"
+index_field_map[15] := "Strawberry"
+index_field_map[16] := "Stump"
+index_field_map[17] := "Sunflower"
+
+field_index_map := Map(), field_index_map.CaseSense := 0
+field_index_map["bamboo"] := 1
+field_index_map["blueflower"] := 2
+field_index_map["cactus"] := 3
+field_index_map["clover"] := 4
+field_index_map["coconut"] := 5
+field_index_map["dandelion"] := 6
+field_index_map["mountaintop"] := 7
+field_index_map["mushroom"] := 8
+field_index_map["pepper"] := 9
+field_index_map["pineapple"] := 10
+field_index_map["pinetree"] := 11
+field_index_map["pumpkin"] := 12
+field_index_map["rose"] := 13
+field_index_map["spider"] := 14
+field_index_map["strawberry"] := 15
+field_index_map["stump"] := 16
+field_index_map["sunflower"] := 17
 
 ;field planters ordered from best to worst (will always try to pick the best planter for the field)
 ;planters that provide no bonuses at all are ordered by worst to best so it can preserve the "better" planters for other nectar types
@@ -2029,7 +2066,7 @@ Run
 '"' WebhookEasterEgg '" "' ssCheck '" "' ssDebugging '" "' CriticalSSCheck '" "' AmuletSSCheck '" "' MachineSSCheck '" "' BalloonSSCheck '" "' ViciousSSCheck '" '
 '"' DeathSSCheck '" "' PlanterSSCheck '" "' HoneySSCheck '" "' criticalCheck '" "' discordUID '" "' CriticalErrorPingCheck '" "' DisconnectPingCheck '" "' GameFrozenPingCheck '" '
 '"' PhantomPingCheck '" "' UnexpectedDeathPingCheck '" "' EmergencyBalloonPingCheck '" "' commandPrefix '" "' NightAnnouncementCheck '" "' NightAnnouncementName '" '
-'"' NightAnnouncementPingID '" "' NightAnnouncementWebhook '" "' PrivServer '" "' DebugLogEnabled '" "' MonsterRespawnTime '" "' HoneyUpdateSSCheck '"'
+'"' NightAnnouncementPingID '" "' NightAnnouncementWebhook '" "' PrivServer '" "' DebugLogEnabled '" "' MonsterRespawnTime '" "' HoneyUpdateSSCheck '" '
 '"' FieldFollowingCheck '" "' FieldFollowingFollowMode '" "' FieldFollowingMaxTime '" "' FieldFollowingChannelID '"'
 )
 
@@ -2525,6 +2562,7 @@ MainGui.Add("Button", "x340 y84 w150 h20 vAutoStartManagerGUI Disabled", "Auto-S
 ;discord tools
 MainGui.Add("Button", "x340 y124 w150 h20 vNightAnnouncementGUI Disabled", "Night Detection").OnEvent("Click", nm_NightAnnouncementGUI)
 MainGui.Add("Button", "x340 y146 w150 h20 vFieldFollowingGUI Disabled", "Field Following").OnEvent("Click", aq_FieldFollowingGUI)
+
 ;reporting
 MainGui.Add("Button", "x340 y184 w150 h20 vReportBugButton Disabled", "Report Bugs").OnEvent("Click", nm_ReportBugButton)
 MainGui.Add("Button", "x340 y206 w150 h20 vMakeSuggestionButton Disabled", "Make Suggestions").OnEvent("Click", nm_MakeSuggestionButton)
@@ -8483,7 +8521,6 @@ nm_NightAnnouncementHelp(*){
 	)", "Announce Night Detection", 0x40000
 }
 
-;
 aq_FieldFollowingGUI(*){
 	global
 	global FieldFollowingFollowMode
@@ -8578,7 +8615,6 @@ aq_saveFieldFollowingChannelID(GuiCtrl, *){
 		nm_ShowErrorBalloonTip(GuiCtrl, "Invalid Discord Channel ID!", "Make sure it is a valid Channel ID.")
 	}
 }
-
 
 nm_ReportBugButton(*){
 	Run "https://github.com/NatroTeam/NatroMacro/issues/new?assignees=&labels=bug%2Cneeds+triage&projects=&template=bug.yml"
@@ -9254,8 +9290,6 @@ blc_mutations(*) {
 	exec.StdIn.Write(script), exec.StdIn.Close()
 	return (MGUIPID := exec.processID)
 }
-
-
 
 ; CREDITS TAB
 ; ------------------------
@@ -12396,7 +12430,7 @@ nm_StickerPrinter(){
 }
 
 ;//todo: pending rewrite of detections?
-nm_Boost()	{
+nm_Boost(){
 	if(VBState=1 || nm_MondoInterrupt())
 		return
 
@@ -12738,7 +12772,7 @@ nm_toAnyBooster(){
 	BoosterCooldown(booster) => (booster = "coconut" ? ((nowUnix()-LastCoconutDis)>14400) : (nowUnix()-Last%booster%Boost)>2700)
 }
 nm_toBooster(location){
-	global LastBlueBoost, LastRedBoost, LastMountainBoost, LastCoconutDis, RecentFBoost, objective, BoostChaserCheck, FieldFollowingCheck
+	global LastBlueBoost, LastRedBoost, LastMountainBoost, LastCoconutDis, RecentFBoost, BoostChaserCheck, FieldFollowingCheck
 	static blueBoosterFields:=["Pine Tree", "Bamboo", "Blue Flower", "Stump"], redBoosterFields:=["Rose", "Strawberry", "Mushroom", "Pepper"], mountainBoosterfields:=["Cactus", "Pumpkin", "Pineapple", "Spider", "Clover", "Dandelion", "Sunflower"], coconutBoosterfields:=["Coconut"]
 	
 	Loop 2 {
@@ -12763,7 +12797,7 @@ nm_toBooster(location){
 				nm_Move(2000*round(18/MoveSpeedNum, 3), FwdKey, RightKey) ; red needs additional steps to avoid the leaderboard area
 			Loop 10 {
 				for k,v in %location%BoosterFields {
-					if nm_fieldBoostCheck(v, 0) ;switched to variant 0 to differentiate between winds and boost
+					if nm_fieldBoostCheck(v, 1)
 					{
 						nm_setStatus("Boosted", v), RecentFBoost := v
 						arg := StrReplace(v, " ")
@@ -15466,6 +15500,7 @@ nm_GoGather(){
 		, BlackQuestCheck, BrownQuestCheck, BuckoQuestCheck, RileyQuestCheck, PolarQuestCheck
 		, BlackQuestComplete, BrownQuestComplete, BuckoQuestComplete, RileyQuestComplete, PolarQuestComplete
 		, FollowingField, FollowingLeader, FollowingStartTime, FieldFollowingFollowMode, LastAnnouncedField, FieldFollowingCheck
+
 	;VICIOUS BEE
 	if (VBState = 1)
 		return
@@ -15668,6 +15703,26 @@ nm_GoGather(){
 				}
 			}
 		}
+		;following override
+		if(FollowingLeader=1){
+			fieldOverrideReason:="Following"
+			FieldName:=FollowingField
+			FieldPattern:=FieldDefault[FollowingField]["pattern"]
+			FieldPatternSize:=FieldDefault[FollowingField]["size"]
+			FieldPatternReps:=FieldDefault[FollowingField]["width"]
+			FieldPatternShift:=FieldDefault[FollowingField]["shiftlock"]
+			FieldPatternInvertFB:=FieldDefault[FollowingField]["invertFB"]
+			FieldPatternInvertLR:=FieldDefault[FollowingField]["invertLR"]
+			FieldUntilMins:=FieldDefault[FollowingField]["gathertime"]
+			FieldUntilPack:=FieldDefault[FollowingField]["percent"]
+			FieldReturnType:=FieldDefault[FollowingField]["convert"]
+			FieldSprinklerLoc:=FieldDefault[FollowingField]["sprinkler"]
+			FieldSprinklerDist:=FieldDefault[FollowingField]["distance"]
+			FieldRotateDirection:=FieldDefault[FollowingField]["camera"]
+			FieldRotateTimes:=FieldDefault[FollowingField]["turns"]
+			FieldDriftCheck:=FieldDefault[FollowingField]["drift"]
+			break
+		}
 		FieldName:=FieldName%CurrentFieldNum%
 		FieldPattern:=FieldPattern%CurrentFieldNum%
 		FieldPatternSize:=FieldPatternSize%CurrentFieldNum%
@@ -15687,7 +15742,6 @@ nm_GoGather(){
 	;gather field changed?
 	if (FieldFollowingCheck && FieldFollowingFollowMode="Leader" && LastAnnouncedField!=FieldName)
 		aq_announceField(FieldName)
-
 	nm_updateAction("Gather")
 	;close all menus
 	nm_OpenMenu()
@@ -15903,6 +15957,7 @@ nm_GoGather(){
 					interruptReason := "Returning from followed field"
 					break
 				}
+
 				;mondo
 				if nm_MondoInterrupt(){
 					interruptReason := "Mondo"
